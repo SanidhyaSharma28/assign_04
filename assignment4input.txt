@@ -1,0 +1,164 @@
+# Question_1
+def towerofhanoi(n, source, target, auxiliary):
+    if n == 0:
+        return
+    towerofhanoi(n-1, source, auxiliary, target)
+    print(f'Move disk {n} from source {source} to destination {target}')
+    towerofhanoi(n-1, auxiliary, target, source)
+
+
+n = 3
+towerofhanoi(n, 'A', 'C', 'B')
+
+# Question_2
+from math import factorial, remainder
+from tracemalloc import start
+
+
+n = int(input("Enter the size of pascal's triangle\n"))
+
+# By Using for loops
+print("Using loops")
+for i in range(n):
+    for j in range(n-i-1):
+        print(end=" ")
+
+    for j in range(i+1):
+        print(factorial(i)//(factorial(j)*factorial(i-j)), end=' ')
+
+    print()
+
+# By Using Recursions
+print("Using Recursions")
+
+def pascals_triangle(n,original_length = n):
+    if n == 0:
+        return
+    pascals_triangle(n-1, original_length)
+    print(" "*(original_length-n), end='')
+
+    start = 1
+    for i in range(1, n+1):
+        print(start, end=" ")
+        start = start * (n-i) // i
+    print()
+
+pascals_triangle(n)
+
+#  question_3
+num_1 = int(input("Enter first number as numerator\n"))
+num_2 = int(input("Enter second number as denominator\n"))
+quotient = num_1//num_2
+remainder = num_1 % num_2
+
+# A.
+print("part A:\nchecking if quotient and remainder is a callable value or not")
+print(callable(quotient))
+print(callable(remainder))
+# B.
+print("part B:")
+if quotient == 0:
+    print("quotient is 0 ")
+if remainder == 0:
+    print("remainder is 0")
+if remainder != 0 and quotient != 0:
+    print("All the values are non zero")
+# C.
+print("part c:")
+list_for_part_c = [remainder+4, remainder+5, remainder+6, quotient+4, quotient+5, quotient+6]
+result = []
+for i in range(len(list_for_part_c)):
+    if list_for_part_c[i] > 4:
+        result.append(list_for_part_c[i])
+print("numbers which were greater than 4 are\n", result)
+# D.
+print("part d:")
+set_1 = set(result)
+print("required set is:\n", set_1)
+# E.
+print("part e:")
+immutabe_set_1 = frozenset(set_1)
+print("immutable set for previous part is:",immutabe_set_1)
+# F.
+print("part f:")
+print("hash value of the maximum value from above set is :",hash(max(immutabe_set_1)))
+
+#  Question_4
+class Student:
+    def __init__(self, student, roll_no):
+        self.name = student
+        self.roll_no = roll_no
+
+    def __del__(self):
+        print("object is destroyed")
+
+
+# creating an object
+student_1 = Student("Sanidhya", 21103044)
+print("object created")
+print(f'the name of the student is {student_1.name} and SID is {student_1.roll_no}.')
+
+# deleting object
+del student_1
+
+# Question_5
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+
+# Creating employee records
+employee_1 = Employee("Mehak", 4000)
+employee_2 = Employee("Ashkok", 5000)
+employee_3 = Employee("Viren", 6000)
+
+# part A
+print("Part A")
+employee_1.salary = 7000 # updating salary
+print(f'update salary of {employee_1.name} is {employee_1.salary} ')
+print("Part B")
+del employee_3  # deleting viren's record
+print("viren's record has been deleted")
+
+# Question_6
+word = input("Enter a word:")
+word = word.lower()
+
+test_word = input("Enter a new word using the exact same letters to test friendship:")
+test_word = test_word.lower()
+
+
+def count_in_dict(word):
+    count = {}
+    list1 = list(word)
+
+    n = len(list1)
+    for i in range(n):
+        if list1[i] in count:
+            count[list1[i]] += 1
+        else:
+            count[list1[i]] = 1
+    return count
+
+
+# Shopkeeper's input to verify the meaning of word
+def userinput():
+    if count_in_dict(word) != count_in_dict(test_word):
+        print("The letters aren't exact, friendship is fake")
+        return
+    ans = input("Does the word makes sense?(y/Y or n/N)")
+
+    if ans == 'y' or ans == 'Y':
+        print("The friends pass the test")
+    elif ans == 'n' or ans == 'N':
+        print('The word  does not have a meaning, friendship is fake')
+    else:
+        print("Invalid input, try again with y/Y or n/N ")
+        userinput()
+
+
+userinput()
+
+
+
